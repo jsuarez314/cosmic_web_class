@@ -1,0 +1,12 @@
+# INSTALL
+
+To compile the binary (executable) file, type:
+
+make
+
+Then add add the PATH. (see the ./README.md)
+
+To remove the binary files and compile again, type:
+
+make clean
+make
