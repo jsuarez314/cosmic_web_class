@@ -220,6 +220,7 @@ contains
 					if(outputBSKindex) then
 						write(tmpstr1,*) i1-1
 						write(tmpstr2,*) i2-1
+                        
 						write(93408,'(A,A,A)') trim(adjustl(tmpstr1)), ' ', trim(adjustl(tmpstr2))
 					endif
 					j = j+1
