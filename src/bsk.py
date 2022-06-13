@@ -3,7 +3,7 @@ import numpy.linalg as la
 from tqdm import tqdm
 
 def NumberConnections(Max,a,b): #Compute the ID, number of connections, and the connections
-    pbar = tqdm(total = Max, desc="Computing Connections")
+    # pbar = tqdm(total = Max, desc="Computing Connections")
     ID=np.zeros(Max)
     Nc=np.zeros(Max)
     Connections=[]
@@ -13,8 +13,8 @@ def NumberConnections(Max,a,b): #Compute the ID, number of connections, and the 
         ID[n]=n
         Nc[n]=len(kx)+len(ky)
         Connections.append(np.concatenate([kx,ky],axis=0))
-        pbar.update(1)
-    pbar.close()
+    #     pbar.update(1)
+    # pbar.close()
     return ID.astype(int),Nc.astype(int),np.array(Connections)
 
 def DP(x1,y1,z1,x2,y2,z2):  #Compute the distance between two points
@@ -40,7 +40,7 @@ def Features(Max,ID,x,y,z,nc,con): #Return the values of average distance and a,
     vol = np.zeros(Max)
     den = np.zeros(Max)+np.exp(60)
     IDnn = ID[nc!=0]
-    pbar = tqdm(total=len(IDnn), desc="Computing Features")
+    # pbar = tqdm(total=len(IDnn), desc="Computing Features")
     for n in IDnn:
         Ixx = 0
         Iyy = 0
@@ -57,7 +57,7 @@ def Features(Max,ID,x,y,z,nc,con): #Return the values of average distance and a,
             Ixy = Ixy-(x[i]-x[n])*(y[i]-y[n])
             Iyz = Iyz-(y[i]-y[n])*(z[i]-z[n])
             Ixz = Ixz-(x[i]-x[n])*(z[i]-z[n])
-        pbar.update(1)
+        # pbar.update(1)
         
         ad[n] = dist_temp/nc[n]
         A=np.array([[Ixx,Ixy,Ixz],[Ixy,Iyy,Iyz],[Ixz,Iyz,Izz]])
@@ -68,7 +68,7 @@ def Features(Max,ID,x,y,z,nc,con): #Return the values of average distance and a,
         c[n] = np.sqrt(eig[2]).real
         vol[n] = Volume(a[n],b[n],c[n])
         den[n] = 1/vol[n]
-    pbar.close()
+    # pbar.close()
     return ad,vol,den
 
 def neigh_features(Max,ID,nc,ncn,ad,den,con): #Compute all properties for first neighbors (Gradient)
